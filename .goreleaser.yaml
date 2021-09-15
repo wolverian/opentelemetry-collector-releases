@@ -38,6 +38,7 @@ docker_manifests:
   - name_template: otel/otelcol:{{ .Tag }}
     image_templates:
       - otel/otelcol:{{ .Tag }}-amd64
+      - otel/otelcol:{{ .Tag }}-arm64v8
 dockers:
   - image_templates:
       - "otel/otelcol:{{ .Tag }}-amd64"
@@ -54,6 +55,21 @@ dockers:
     extra_files:
       - "configs/otelcol.yaml"
     goarch: amd64
+  - image_templates:
+      - "otel/otelcol:{{ .Tag }}-arm64v8"
+    dockerfile: "distributions/otelcol/Dockerfile"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/arm64/v8"
+    extra_files:
+      - "configs/otelcol.yaml"
+    goarch: arm64
 nfpms:
   - id: "otelcol"
     package_name: "otelcol"
