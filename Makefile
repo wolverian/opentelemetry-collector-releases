@@ -35,7 +35,7 @@ ifeq (, $(shell which opentelemetry-collector-builder))
 	set -e ;\
 	echo Installing opentelemetry-collector-builder at $(OTELCOL_BUILDER_DIR);\
 	mkdir -p $(OTELCOL_BUILDER_DIR) ;\
-	curl -sLo $(OTELCOL_BUILDER) https://github.com/open-telemetry/opentelemetry-collector-builder/releases/download/v$(OTELCOL_BUILDER_VERSION)/opentelemetry-collector-builder_$(OTELCOL_BUILDER_VERSION)_linux_amd64 ;\
+	curl -sLo $(OTELCOL_BUILDER) https://github.com/open-telemetry/opentelemetry-collector-builder/releases/download/v$(OTELCOL_BUILDER_VERSION)/opentelemetry-collector-builder_$(OTELCOL_BUILDER_VERSION)_$$(uname -s | tr '[:upper:]' '[:lower:]')_$$(uname -m) ;\
 	chmod +x $(OTELCOL_BUILDER) ;\
 	}
 else
