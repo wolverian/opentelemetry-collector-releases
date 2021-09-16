@@ -14,3 +14,18 @@ dockers:
   extra_files:
     - "configs/{distribution}.yaml"
   goarch: amd64
+- image_templates:
+    - "otel/{distribution}:{{ .Tag }}-arm64v8"
+  dockerfile: "distributions/{distribution}/Dockerfile"
+  use: buildx
+  build_flag_templates:
+    - "--pull"
+    - "--label=org.opencontainers.image.created={{.Date}}"
+    - "--label=org.opencontainers.image.name={{.ProjectName}}"
+    - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+    - "--label=org.opencontainers.image.version={{.Version}}"
+    - "--label=org.opencontainers.image.source={{.GitURL}}"
+    - "--platform=linux/arm64/v8"
+  extra_files:
+    - "configs/{distribution}.yaml"
+  goarch: arm64

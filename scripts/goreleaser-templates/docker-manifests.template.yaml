@@ -2,3 +2,4 @@ docker_manifests:
   - name_template: otel/{distribution}:{{ .Tag }}
     image_templates:
       - otel/{distribution}:{{ .Tag }}-amd64
+      - otel/{distribution}:{{ .Tag }}-arm64v8
